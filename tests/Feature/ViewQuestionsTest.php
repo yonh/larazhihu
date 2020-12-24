@@ -8,6 +8,10 @@ use Tests\TestCase;
 
 class ViewQuestionsTest extends TestCase
 {
+    // Laravel 为我们准备了一个 RefreshDatabase 的 trait，当每次运行测试之前，会运行数据库迁移，创建表；
+    // 运行完测试之后，回滚数据库迁移，删除表。所以我们只需使用该 trait 即可：
+    use RefreshDatabase;
+
     /** @test */
     public function user_can_view_questions()
     {
@@ -24,7 +28,7 @@ class ViewQuestionsTest extends TestCase
     /** @test */
     public function user_can_view_a_single_question()
     {
-        $this->withoutExceptionHandling();
+//        $this->withoutExceptionHandling();
 
         // 1. 创建问题
         $question = factory(Question::class)->create();
