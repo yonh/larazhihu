@@ -63,4 +63,20 @@ class ViewQuestionsTest extends TestCase
             ->get('/questions/' . $question->id)
             ->assertStatus(404);
     }
+
+    /** @test */
+    public function questions_with_published_at_date_are_published()
+    {
+//        $publishedQuestion1 = factory(Question::class)->create(['published_at'=> Carbon::parse('-1 week')]);
+//        $publishedQuestion2 = factory(Question::class)->create(['published_at'=> Carbon::parse('-1 week')]);
+        $publishedQuestion1 = factory(Question::class)->state('published')->create();
+        $publishedQuestion2 = factory(Question::class)->state('published')->create();
+        $unpublishedQuestion = factory(Question::class)->state('unpublished')->create();
+
+        $publishedQuestions = Question::published()->get();
+
+        $this->assertTrue($publishedQuestions->contains($publishedQuestion1));
+        $this->assertTrue($publishedQuestions->contains($publishedQuestion2));
+        $this->assertFalse($publishedQuestions->contains($unpublishedQuestion));
+    }
 }
