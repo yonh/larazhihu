@@ -29,7 +29,7 @@ class PostAnswersTest extends TestCase
 
         $this->assertNotNull($answer);
 
-        $this->assertEquals(1, $question-answers()->count());
+        $this->assertEquals(1, $question->answers()->count());
 
     }
 }
