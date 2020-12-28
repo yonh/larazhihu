@@ -23,7 +23,7 @@ class PostAnswersTest extends TestCase
             "content" => "this is an answer"
         ]);
 
-        $response->assertStatus(201);
+        $response->assertStatus(302);
         $answer = $question->answers()->where('user_id', $user->id)->first();
 
         $this->assertNotNull($answer);
@@ -35,7 +35,8 @@ class PostAnswersTest extends TestCase
     public function can_not_post_an_answer_to_an_unpublished_question()
     {
         $question = factory(Question::class)->state('unpublished')->create();
-        $user = factory(User::class)->create();
+//        $user = factory(User::class)->create();
+        $this->actingAs($user = factory(User::class)->create());
 
         $response = $this->withExceptionHandling()
             ->post("/questions/{$question->id}/answers", [
@@ -50,12 +51,26 @@ class PostAnswersTest extends TestCase
     }
 
     /** @test */
+    public function guests_may_not_post_an_answer()
+    {
+        $this->expectException('Illuminate\Auth\AuthenticationException');
+
+        $question = factory(Question::class)->state('published')->create();
+
+        $response = $this->post("/questions/{$question->id}/answers", ['content'=>'this is an answer']);
+
+        $response->assertStatus(302)
+            ->assertRedirect('/login');
+    }
+
+    /** @test */
     public function content_is_required_to_post_answers()
     {
         $this->withExceptionHandling();
 
         $question = factory(Question::class)->state('published')->create();
-        $user = factory(User::class)->create();
+//        $user = factory(User::class)->create();
+        $this->actingAs($user = factory(User::class)->create());
 
         $response = $this->post("/questions/{$question->id}/answers", [
             'user_id'=>$user->id,
