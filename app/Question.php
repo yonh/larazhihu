@@ -18,5 +18,10 @@ class Question extends Model
         return $this->hasMany(Answer::class);
     }
 
+    public function markAsBestAnswer($answer)
+    {
+        $this->update(['best_answer_id'=>$answer->id]);
+    }
+
 
 }
