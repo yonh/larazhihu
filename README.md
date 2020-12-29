@@ -14,4 +14,7 @@ php artisan make:model Question -m
 
 # 建立模型工厂
 php artisan make:factory QuestionFactory -m Question
+
+# 创建权限策略
+php artisan make:policy QuestionPolicy --model=Question
 ```
