@@ -17,7 +17,7 @@ class PostAnswersTest extends TestCase
     {
         // 假设已存在某个问题
         $question = factory(Question::class)->state('published')->create();
-        $this->actingAs($user = factory(User::class)->create());
+        $this->signIn($user = create(User::class));
 
         $response = $this->post("/questions/{$question->id}/answers",[
             "content" => "this is an answer"
@@ -35,8 +35,7 @@ class PostAnswersTest extends TestCase
     public function can_not_post_an_answer_to_an_unpublished_question()
     {
         $question = factory(Question::class)->state('unpublished')->create();
-//        $user = factory(User::class)->create();
-        $this->actingAs($user = factory(User::class)->create());
+        $this->signIn($user = create(User::class));
 
         $response = $this->withExceptionHandling()
             ->post("/questions/{$question->id}/answers", [
@@ -70,7 +69,7 @@ class PostAnswersTest extends TestCase
 
         $question = factory(Question::class)->state('published')->create();
 //        $user = factory(User::class)->create();
-        $this->actingAs($user = factory(User::class)->create());
+        $this->signIn($user = create(User::class));
 
         $response = $this->post("/questions/{$question->id}/answers", [
             'user_id'=>$user->id,
