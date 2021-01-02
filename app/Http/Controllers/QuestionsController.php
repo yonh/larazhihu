@@ -17,6 +17,11 @@ class QuestionsController extends Controller
 //        $question = Question::whereNotNull('published_at')->findOrFail;
 //        $question = Question::whereNotNull('published_at')->findOrFail($questionId);
         $question = Question::published()->findOrFail($questionId);
-        return view('questions.show', compact('question'));
+//        return view('questions.show', compact('question'));
+
+        return view('questions.show', [
+            'question'=>$question,
+            'answers'=>$question->answers()->paginate(20)
+        ]);
     }
 }

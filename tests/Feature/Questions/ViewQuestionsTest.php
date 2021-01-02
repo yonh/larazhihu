@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Answer;
+use App\Policies\AnswerPolicy;
 use App\Question;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -78,5 +80,27 @@ class ViewQuestionsTest extends TestCase
         $this->assertTrue($publishedQuestions->contains($publishedQuestion1));
         $this->assertTrue($publishedQuestions->contains($publishedQuestion2));
         $this->assertFalse($publishedQuestions->contains($unpublishedQuestion));
+    }
+
+    /** @test */
+    public function can_see_answers_when_view_a_published_question()
+    {
+        $question = factory(Question::class)->state('published')->create();
+
+        create(Answer::class, ['question_id'=>$question->id], 40);
+
+        $response = $this->get('/questions/' . $question->id);
+
+//        $answerShouldSee = Answer::find(1);
+//        $answerShoudNotSee = Answer::find(11);
+//
+//        $response->assertStatus(200)
+//            ->assertSee($answerShouldSee->content)
+//            ->assertDontSee($answerShoudNotSee->content);
+
+
+        $result = $response->viewData('answers')->toArray();
+        $this->assertCount(20, $result['data']);
+        $this->assertEquals(40, $result['total']);
     }
 }
