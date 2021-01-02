@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Answer;
+use App\Policies\AnswerPolicy;
 use App\Question;
 use Illuminate\Http\Request;
 
@@ -27,5 +29,14 @@ class AnswersController extends Controller
 
         return back();
 //        return response()->json([], 201);
+    }
+
+    public function destroy(Answer $answer)
+    {
+        $this->authorize('delete', $answer);
+
+        $answer->delete();
+
+        return back();
     }
 }
