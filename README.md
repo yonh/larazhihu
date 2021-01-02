@@ -26,6 +26,18 @@ yarn config set registry https://registry.npm.taobao.org/
 # 运行 mix 编译命令：
 npm run watch-poll
 
+# 运行数据库迁移命令
+php artisan migrate
+
 ```
 
 
+使用 tikner 构造数据
+```
+php artisan tinker
+
+
+## 创建数据
+>>> $question = create(\App\Question::class, ['published_at' => \Carbon\Carbon::now()]);
+>>> create(\App\Answer::class, ['question_id' => $question->id], 10);
+```
