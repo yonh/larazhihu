@@ -17,4 +17,15 @@ php artisan make:factory QuestionFactory -m Question
 
 # 创建权限策略
 php artisan make:policy QuestionPolicy --model=Question
+
+# 查看当前使用的镜像源
+yarn config get registry
+# 使用阿里云源
+yarn config set registry https://registry.npm.taobao.org/
+
+# 运行 mix 编译命令：
+npm run watch-poll
+
 ```
+
+
