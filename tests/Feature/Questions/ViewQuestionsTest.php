@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Answer;
+use App\Models\Answer;
 use App\Policies\AnswerPolicy;
-use App\Question;
+use App\Models\Question;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;

@@ -2,8 +2,8 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Question;
-use App\User;
+use App\Models\Question;
+use App\Models\User;
 use Faker\Generator as Faker;
 
 $factory->define(Question::class, function (Faker $faker) {

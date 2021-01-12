@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Answer;
+use App\Models\Answer;
 use App\Policies\AnswerPolicy;
-use App\Question;
+use App\Models\Question;
 use Illuminate\Http\Request;
 
 class AnswersController extends Controller

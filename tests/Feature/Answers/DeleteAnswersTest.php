@@ -2,10 +2,10 @@
 
 namespace Tests\Feature;
 
-use App\Answer;
+use App\Models\Answer;
 use App\Policies\AnswerPolicy;
-use App\Question;
-use App\User;
+use App\Models\Question;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;

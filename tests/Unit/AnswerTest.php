@@ -2,8 +2,8 @@
 
 namespace Tests\Unit;
 
-use App\Answer;
-use App\Question;
+use App\Models\Answer;
+use App\Models\Question;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -40,6 +40,6 @@ class AnswerTest extends TestCase
 
         $this->assertInstanceOf('Illuminate\Database\Eloquent\Relations\BelongsTo', $answer->owner());
 
-        $this->assertInstanceOf('App\User', $answer->owner);
+        $this->assertInstanceOf('App\Models\User', $answer->owner);
     }
 }
