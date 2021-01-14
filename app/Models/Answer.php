@@ -39,4 +39,19 @@ class Answer extends Model
     {
         $this->votes('vote_up')->where(['user_id' => $user->id, 'type' => 'vote_up'])->delete();
     }
+
+    public function isVotedUp($user)
+    {
+        if (!$user) {
+            return false;
+        }
+
+        return $this->votes('vote_up')->where('user_id', $user->id)->exists();
+    }
+
+    public function getUpVotesCountAttribute()
+    {
+        return $this->votes('vote_up')->count();
+    }
+
 }
